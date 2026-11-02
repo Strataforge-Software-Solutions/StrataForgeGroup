@@ -1,5 +1,5 @@
-import { generateGeminiReply } from "./gemini.js";
+import { generateGroqReply } from "./groq.js";
 
 export function generateReply(options) {
-  return generateGeminiReply(options);
+  return generateGroqReply(options);
 }

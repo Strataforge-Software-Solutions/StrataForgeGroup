@@ -1,6 +1,51 @@
 import { useEffect, useRef, useState } from "react";
 import { Bot, ChevronDown, MessageCircle, Send, X } from "lucide-react";
 
+function renderInline(text) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) =>
+    part.startsWith("**") && part.endsWith("**")
+      ? <strong key={index}>{part.slice(2, -2)}</strong>
+      : part,
+  );
+}
+
+function renderMessage(content) {
+  const lines = content.split("\n");
+  const elements = [];
+  let index = 0;
+
+  while (index < lines.length) {
+    const line = lines[index];
+    if (line.trim().startsWith("|") && index + 1 < lines.length && lines[index + 1].includes("---")) {
+      const headers = line.split("|").slice(1, -1).map((cell) => cell.trim());
+      index += 2;
+      const rows = [];
+      while (index < lines.length && lines[index].trim().startsWith("|")) {
+        rows.push(lines[index].split("|").slice(1, -1).map((cell) => cell.trim()));
+        index += 1;
+      }
+      elements.push(
+        <div key={`table-${index}`} className="my-2 overflow-x-auto">
+          <table className="min-w-full border-collapse text-left text-xs">
+            <thead><tr>{headers.map((cell) => <th key={cell} className="border-b border-slate-200 px-2 py-1 font-bold">{renderInline(cell)}</th>)}</tr></thead>
+            <tbody>{rows.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, cellIndex) => <td key={cellIndex} className="border-b border-slate-100 px-2 py-1 align-top">{renderInline(cell)}</td>)}</tr>)}</tbody>
+          </table>
+        </div>,
+      );
+      continue;
+    }
+    if (/^[-*] /.test(line)) {
+      const items = [];
+      while (index < lines.length && /^[-*] /.test(lines[index])) items.push(lines[index++].slice(2));
+      elements.push(<ul key={`list-${index}`} className="mb-2 list-disc space-y-1 pl-5">{items.map((item) => <li key={item}>{renderInline(item)}</li>)}</ul>);
+      continue;
+    }
+    if (line.trim()) elements.push(<p key={index} className="mb-2 last:mb-0">{renderInline(line)}</p>);
+    index += 1;
+  }
+  return elements;
+}
+
 const welcomeMessage = {
   role: "assistant",
   content:
@@ -109,15 +154,15 @@ export default function Chatbot() {
                 key={`${message.role}-${index}`}
                 className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                <p
+                <div
                   className={`max-w-[84%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                     message.role === "user"
                       ? "rounded-br-md bg-brand-ink text-white"
                       : "rounded-bl-md bg-white text-slate-600 shadow-sm ring-1 ring-slate-100"
                   }`}
                 >
-                  {message.content}
-                </p>
+                  {renderMessage(message.content)}
+                </div>
               </div>
             ))}
             {loading && (

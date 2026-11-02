@@ -10,10 +10,19 @@ Services:
 Projects and capabilities include corporate websites, e-commerce sites, student management systems, inventory systems, dashboards, integrations, and custom internal tools. Specific project scope, timeline, and final pricing are confirmed after a discussion.
 
 Pricing guidance:
-- Starter Site: from $1,200.
-- Business Platform: from $3,800.
-- Custom System: contact the team for a tailored quote.
-These are starting ranges only. Final pricing depends on features, timeline, integrations, and complexity.
+- Philippine clients:
+  - Hourly rate per developer: ₱150–₱300.
+  - Simple Landing Page / Basic Website: ₱15,000–₱25,000.
+  - Simple MVP / Internal Tool: ₱60,000–₱120,000.
+  - Medium Complexity Custom App: ₱150,000–₱250,000.
+  - Large / Custom Enterprise App: ₱350,000–₱500,000.
+- US/international clients:
+  - Hourly rate per developer: $20–$45/hr.
+  - Simple Landing Page / Basic Website: $1,000–$2,500 (approximately ₱58,000–₱145,000).
+  - Simple MVP / Internal Tool: $4,000–$8,000 (approximately ₱230,000–₱465,000).
+  - Medium Complexity Custom App: $10,000–$25,000 (approximately ₱580,000–₱1.45M).
+  - Large / Custom Enterprise App: $30,000–$50,000+ (approximately ₱1.74M–₱2.9M+).
+These are estimates only. Final pricing depends on features, integrations, timeline, team size, and project complexity. Confirm the scope and final quote with the team.
 
 Founders:
 - Zoren Christian C. Magaan: Co-Founder & Lead Full-Stack Engineer.
