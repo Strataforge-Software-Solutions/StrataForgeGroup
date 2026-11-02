@@ -2,7 +2,8 @@ import { generateReply } from "./_lib/llm.js";
 import { systemPrompt } from "./_lib/knowledge.js";
 
 const MAX_MESSAGES = 20;
-const MAX_MESSAGE_LENGTH = 1000;
+const MAX_USER_MESSAGE_LENGTH = 1000;
+const MAX_ASSISTANT_MESSAGE_LENGTH = 4000;
 const MAX_TOTAL_LENGTH = 12000;
 const RATE_LIMIT_WINDOW = 60_000;
 const RATE_LIMIT_MAX = 10;
@@ -53,7 +54,11 @@ export default async function handler(request, response) {
     }
 
     const content = message.content.trim();
-    return content && content.length <= MAX_MESSAGE_LENGTH
+    const maxLength = message.role === "user"
+      ? MAX_USER_MESSAGE_LENGTH
+      : MAX_ASSISTANT_MESSAGE_LENGTH;
+
+    return content && content.length <= maxLength
       ? { role: message.role, content }
       : null;
   });
