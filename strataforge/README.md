@@ -1,4 +1,18 @@
-# React + Vite
+# StrataForge
+
+## Chatbot configuration
+
+The chatbot uses Groq from the server-side `/api/chat` endpoint. Configure these
+environment variables in Vercel (or your local server environment):
+
+```env
+GROQ_API_KEY=your-groq-api-key
+GROQ_MODEL=openai/gpt-oss-120b
+```
+
+`GROQ_MODEL` is optional; the default is `openai/gpt-oss-120b`.
+
+Get an API key from [Groq Console](https://console.groq.com/keys).
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
