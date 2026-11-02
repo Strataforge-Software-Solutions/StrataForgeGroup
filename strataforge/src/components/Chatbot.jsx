@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Bot, ChevronDown, MessageCircle, Send, X } from "lucide-react";
+import { ChevronDown, MessageCircle, Send, X } from "lucide-react";
 
 function renderInline(text) {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) =>
@@ -51,6 +51,8 @@ const welcomeMessage = {
   content:
     "Hi! I’m the StrataForge assistant. Ask me about our services, projects, pricing, or how we can help with your next software project.",
 };
+
+const MAX_INPUT_LENGTH = 1000;
 
 export default function Chatbot() {
   const [open, setOpen] = useState(false);
@@ -119,11 +121,12 @@ export default function Chatbot() {
           <header className="flex items-center justify-between bg-navy px-5 py-4 text-white">
             <div className="flex min-w-0 items-center gap-3">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-white">
-                <Bot size={20} />
+                <img src="/images/ForgeyHalf.png" alt="Forgey Mascot" className="h-9 w-9 object-cover object-left" />
               </span>
               <div className="min-w-0">
                 <h2 id="chatbot-title" className="truncate text-sm font-bold">
-                  StrataForge Assistant
+                Forgey | AI Assistant
+
                 </h2>
                 <p className="mt-0.5 text-xs text-white/55">Here to help you build</p>
               </div>
@@ -189,7 +192,7 @@ export default function Chatbot() {
                 onKeyDown={onKeyDown}
                 disabled={loading}
                 rows={1}
-                maxLength={2000}
+                maxLength={MAX_INPUT_LENGTH}
                 placeholder="Ask us anything..."
                 aria-label="Message the StrataForge assistant"
                 className="max-h-24 min-h-10 flex-1 resize-none border-0 bg-transparent px-3 py-2 text-sm text-navy outline-none placeholder:text-slate-400"
@@ -213,7 +216,7 @@ export default function Chatbot() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          aria-label="Open StrataForge chatbot"
+          aria-label="Open Forgey chatbot"
           className="group flex h-14 w-14 items-center justify-center rounded-full bg-brand-ink text-white shadow-[0_10px_30px_rgba(194,65,0,0.35)] transition duration-200 hover:scale-105 hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 sm:h-16 sm:w-16"
         >
           <MessageCircle size={25} className="transition group-hover:scale-110" />
