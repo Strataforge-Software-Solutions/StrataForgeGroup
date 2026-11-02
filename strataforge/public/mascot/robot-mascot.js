@@ -67,7 +67,7 @@
   }
   function reset() {
     wake(); releaseLock(); root.classList.remove('arriving'); clearTimeout(arrivalTimer);
-    position(innerWidth - size() - 18, innerHeight - size() - 18);
+    position(18, innerHeight - size() - 18);
     pose('idle', 'curious'); say('This spot feels like home.');
   }
   function moveTo(cx, cy) {
@@ -117,6 +117,6 @@
   });
   window.addEventListener('pagehide', () => clearInterval(idleTimer), { once: true });
   window.robotMascot = { greet, sleep, reset, moveTo };
-  position(innerWidth - size() - 18, innerHeight - size() - 18);
+  position(18, innerHeight - size() - 18);
   lockedUntil = Date.now() + 2000; say('Psst… try picking me up!');
 })();
