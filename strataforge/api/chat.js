@@ -2,7 +2,7 @@ import { generateReply } from "./_lib/llm.js";
 import { systemPrompt } from "./_lib/knowledge.js";
 
 const MAX_MESSAGES = 20;
-const MAX_MESSAGE_LENGTH = 2000;
+const MAX_MESSAGE_LENGTH = 1000;
 const MAX_TOTAL_LENGTH = 12000;
 const RATE_LIMIT_WINDOW = 60_000;
 const RATE_LIMIT_MAX = 10;
@@ -69,8 +69,11 @@ export default async function handler(request, response) {
 
   try {
     const content = await generateReply({ messages: validMessages, systemPrompt });
+    const safeContent = /```|<script\b|\b(?:rm\s+-rf|powershell\b|bash\b|javascript\s*:)/i.test(content)
+      ? "I can help explain our services, projects, and pricing, but I cannot provide code or instructions that could be used to misuse systems."
+      : content;
     return response.status(200).json({
-      message: { role: "assistant", content },
+      message: { role: "assistant", content: safeContent },
     });
   } catch (error) {
     console.error("Chat provider error:", error?.code || "unknown");
