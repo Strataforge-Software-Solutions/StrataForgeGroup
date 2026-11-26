@@ -27,8 +27,7 @@
   }
   let x = 0, y = 0, lockedUntil = 0, nap = false, drag = null;
   let lastActivity = Date.now(), bubbleTimer, poseTimer, arrivalTimer, gazeFrame;
-  let mascotSize = innerWidth <= 600 ? 140 : 170;
-  const size = () => mascotSize;
+  const size = () => root.getBoundingClientRect().width;
   const clamp = (n, lo, hi) => Math.max(lo, Math.min(n, Math.max(lo, hi)));
   const pose = (name, mood) => {
     root.dataset.pose = name;
@@ -67,7 +66,7 @@
   }
   function reset() {
     wake(); releaseLock(); root.classList.remove('arriving'); clearTimeout(arrivalTimer);
-    position(innerWidth - size() - 18, innerHeight - size() - 18);
+    position(18, innerHeight - size() - 18);
     pose('idle', 'curious'); say('This spot feels like home.');
   }
   function moveTo(cx, cy) {
@@ -111,12 +110,9 @@
     });
   }, { passive: true });
   const idleTimer = setInterval(() => { if (!drag && !nap && Date.now() - lastActivity > 15000) sleep(); }, 1000);
-  window.addEventListener('resize', () => {
-    mascotSize = innerWidth <= 600 ? 140 : 170;
-    position(x, y);
-  });
+  window.addEventListener('resize', () => position(x, y));
   window.addEventListener('pagehide', () => clearInterval(idleTimer), { once: true });
   window.robotMascot = { greet, sleep, reset, moveTo };
-  position(innerWidth - size() - 18, innerHeight - size() - 18);
+  position(18, innerHeight - size() - 18);
   lockedUntil = Date.now() + 2000; say('Psst… try picking me up!');
 })();
